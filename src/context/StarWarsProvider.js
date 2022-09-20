@@ -5,6 +5,7 @@ import getStarWarsPlanets from '../services/index';
 
 function StarWarsProvider({ children }) {
   const [planets, setPlanets] = useState([]);
+  const [filterByName, setFilterByName] = useState({ name: '' });
 
   const getPlanets = async () => {
     try {
@@ -15,9 +16,17 @@ function StarWarsProvider({ children }) {
     }
   };
 
+  const getFilterByName = (value) => {
+    setFilterByName({ name: value });
+  };
+
+  const filterName = planets.filter((planet) => planet.name
+    .toLowerCase().includes(filterByName.name.toLowerCase()));
+
   const contextValue = {
-    planets,
     getPlanets,
+    getFilterByName,
+    filterName,
   };
 
   return (
