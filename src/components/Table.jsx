@@ -1,28 +1,9 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import StarWarsContext from '../context/StarWarsContext';
+import { arrayTitle } from '../utils/constants';
 
 function Table() {
-  const { getPlanets, filterName } = useContext(StarWarsContext);
-
-  const arrayTitle = [
-    'Name',
-    'Rotation Period',
-    'Orbital Period',
-    'Diameter',
-    'Climate',
-    'Gravity',
-    'Terrain',
-    'Surface Water',
-    'Population',
-    'Films',
-    'Created',
-    'Edited',
-    'URL',
-  ];
-
-  useEffect(() => {
-    getPlanets();
-  }, []);
+  const { filterName } = useContext(StarWarsContext);
 
   return (
     <main>
