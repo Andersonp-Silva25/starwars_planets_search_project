@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import StarWarsContext from './StarWarsContext';
 import getStarWarsPlanets from '../services/index';
@@ -7,7 +7,7 @@ function StarWarsProvider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [filterByName, setFilterByName] = useState({ name: '' });
   const [filterByNumericValue, setFilterByNumericValue] = useState(
-    [{ column: 'population', comparation: 'maior que', value: '0' }],
+    [],
   );
 
   const getPlanets = async () => {
@@ -18,10 +18,6 @@ function StarWarsProvider({ children }) {
       console.log(e.message);
     }
   };
-
-  useEffect(() => {
-    getPlanets();
-  }, []);
 
   const getFilterByName = (value) => {
     setFilterByName({ name: value });
@@ -46,6 +42,7 @@ function StarWarsProvider({ children }) {
   });
 
   const contextValue = {
+    getPlanets,
     getFilterByName,
     filterName,
     getFilterNumericValue,
