@@ -1,13 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import StarWarsContext from '../context/StarWarsContext';
 import { arrayTitle } from '../utils/constants';
 
 function Table() {
-  const { getPlanets, filterName } = useContext(StarWarsContext);
-
-  useEffect(() => {
-    getPlanets();
-  }, []);
+  const { filterName } = useContext(StarWarsContext);
 
   return (
     <main>

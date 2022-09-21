@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import StarWarsContext from './StarWarsContext';
 import getStarWarsPlanets from '../services/index';
@@ -19,12 +19,18 @@ function StarWarsProvider({ children }) {
     }
   };
 
+  useEffect(() => {
+    getPlanets();
+  }, []);
+
   const getFilterByName = (value) => {
     setFilterByName({ name: value });
   };
 
   const getFilterNumericValue = (column, comparation, value) => (
-    setFilterByNumericValue([{ column, comparation, value }]));
+    setFilterByNumericValue(
+      (prevState) => [...prevState, { column, comparation, value }],
+    ));
 
   let filterName = planets.filter((planet) => planet.name
     .toLowerCase().includes(filterByName.name.toLowerCase()));
@@ -42,7 +48,6 @@ function StarWarsProvider({ children }) {
   });
 
   const contextValue = {
-    getPlanets,
     getFilterByName,
     filterName,
     getFilterNumericValue,
