@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import FilterByName from './FilterByName';
 import FormFilterByNumericValue from './FormFilterByNumericValue';
+import StarWarsContext from '../context/StarWarsContext';
 
 function Header() {
+  const {
+    isLoading,
+  } = useContext(StarWarsContext);
+
   return (
     <header>
       <h1>Header StarWars</h1>
       <FilterByName />
       <br />
-      <FormFilterByNumericValue />
+      { !isLoading && <FormFilterByNumericValue />}
       <br />
     </header>
   );

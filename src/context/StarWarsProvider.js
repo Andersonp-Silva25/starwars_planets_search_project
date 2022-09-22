@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import StarWarsContext from './StarWarsContext';
 import getStarWarsPlanets from '../services/index';
+import { optionsArray } from '../utils/constants';
 
 function StarWarsProvider({ children }) {
   const [planets, setPlanets] = useState([]);
@@ -9,6 +10,8 @@ function StarWarsProvider({ children }) {
   const [filterByNumericValue, setFilterByNumericValue] = useState(
     [],
   );
+  const [filterOptionsColumn, setFilterOptionsColumn] = useState(optionsArray);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getPlanets = async () => {
     try {
@@ -47,10 +50,22 @@ function StarWarsProvider({ children }) {
     });
   });
 
+  useEffect(() => {
+    filterByNumericValue.forEach((element) => {
+      const newOption = filterOptionsColumn.filter((option) => option !== element.column);
+      setFilterOptionsColumn(newOption);
+      console.log(newOption);
+    });
+    setIsLoading(false);
+  }, [filterByNumericValue]);
+
   const contextValue = {
     getFilterByName,
     filterName,
     getFilterNumericValue,
+    filterOptionsColumn,
+    isLoading,
+    setIsLoading,
   };
 
   return (

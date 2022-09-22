@@ -1,23 +1,26 @@
 import React, { useContext, useState } from 'react';
 import StarWarsContext from '../context/StarWarsContext';
-import { optionsArray, valueArray } from '../utils/constants';
+import { valueArray } from '../utils/constants';
 
 function FormFilterByNumericValue() {
-  const [columnValue, setOptionsValue] = useState({ column: 'population' });
+  const {
+    getFilterNumericValue,
+    filterOptionsColumn,
+    setIsLoading,
+  } = useContext(StarWarsContext);
+
+  const [columnValue, setOptionsValue] = useState({ column: filterOptionsColumn[0] });
   const [comparationValue, setComparationValue] = useState({ comparation: 'maior que' });
   const [numericValue, setNumericValue] = useState({ value: '0' });
 
-  const {
-    getFilterNumericValue,
-  } = useContext(StarWarsContext);
-
-  const filterNumericValue = () => (
+  const filterNumericValue = () => {
+    setIsLoading(true);
     getFilterNumericValue(
       columnValue.column,
       comparationValue.comparation,
       numericValue.value,
-    )
-  );
+    );
+  };
 
   return (
     <div>
@@ -25,7 +28,7 @@ function FormFilterByNumericValue() {
         data-testid="column-filter"
         onChange={ ({ target: { value } }) => setOptionsValue({ column: value }) }
       >
-        {optionsArray.map((option, index) => (
+        {filterOptionsColumn.map((option, index) => (
           <option key={ option + index }>{option}</option>
         ))}
       </select>
