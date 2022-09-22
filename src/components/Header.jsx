@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import FilterByName from './FilterByName';
 import FormFilterByNumericValue from './FormFilterByNumericValue';
 import StarWarsContext from '../context/StarWarsContext';
+import AppliedFilters from './AppliedFilters';
 
 function Header() {
   const {
@@ -14,6 +15,8 @@ function Header() {
       <FilterByName />
       <br />
       { !isLoading && <FormFilterByNumericValue />}
+      <br />
+      <AppliedFilters />
       <br />
     </header>
   );

@@ -54,10 +54,22 @@ function StarWarsProvider({ children }) {
     filterByNumericValue.forEach((element) => {
       const newOption = filterOptionsColumn.filter((option) => option !== element.column);
       setFilterOptionsColumn(newOption);
-      console.log(newOption);
     });
     setIsLoading(false);
   }, [filterByNumericValue]);
+
+  const getDeleteOneFilter = (position) => {
+    const deleteFilter = filterByNumericValue.filter((__, index) => index !== position);
+    setFilterByNumericValue(deleteFilter);
+    setFilterOptionsColumn(optionsArray);
+    setIsLoading(true);
+  };
+
+  const getDeleteAllFilters = () => {
+    setFilterByNumericValue([]);
+    setFilterOptionsColumn(optionsArray);
+    setIsLoading(true);
+  };
 
   const contextValue = {
     getFilterByName,
@@ -66,6 +78,10 @@ function StarWarsProvider({ children }) {
     filterOptionsColumn,
     isLoading,
     setIsLoading,
+    filterByNumericValue,
+    setFilterByNumericValue,
+    getDeleteOneFilter,
+    getDeleteAllFilters,
   };
 
   return (
